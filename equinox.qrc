@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/account-logged-in.svg</file>
+        <file>images/document-new.svg</file>
+        <file>images/document-open.svg</file>
+        <file>images/document-properties.svg</file>
+        <file>images/document-save.svg</file>
+        <file>images/media-playback-start.svg</file>
+        <file>images/document-close.svg</file>
+        <file>images/go-down.png</file>
+        <file>images/go-up.png</file>
+        <file>images/unknown-device.png</file>
+        <file>images/search.png</file>
+        <file>images/bookmark-new.png</file>
+        <file>images/file.png</file>
+        <file>images/download.png</file>
+        <file alias="empty.prf">templates/empty_1_V0-1.prf</file>
+        <file alias="rml.dtd">templates/rml_1_V0-2.dtd</file>
+    </qresource>
+</RCC>

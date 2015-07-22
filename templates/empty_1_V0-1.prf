@@ -1,0 +1,38 @@
+<!-- Empty RML Template -->
+
+<device xmlns="http://rml.xped.com">
+	<description>
+		<manufacturer>manufacturer</manufacturer>
+		<mmodel>modelnumber</mmodel>
+		<category>0000</category>
+		<version>0.1</version>
+		<themename>
+			<localetitle><en>Standard</en></localetitle>
+		</themename>
+		<nickname>
+			<localetitle><en>Empty template</en></localetitle>
+		</nickname>
+		<url>yoursite.com</url>
+	</description>
+
+	<model>
+		<!-- add model items here -->
+	</model>
+
+	<view>
+		<screen margins="4">
+			<!-- add widget items here -->
+		</screen>
+	</view>
+	
+	<controller>
+		<!-- add controller items here -->
+	</controller>
+
+	<!-- Add the menu items the device supports here -->
+	<menu>
+		<menuitem>unpair</menuitem>
+		<!-- menuitem>set-pin</menuitem -->
+	</menu>
+</device>
+

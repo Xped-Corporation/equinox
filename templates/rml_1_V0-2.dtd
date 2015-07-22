@@ -1,0 +1,463 @@
+<!-- 
+// This module defines the syntax of the RML language.
+//
+// Copyright (c) 2015 Xped Holdings Limited <info@xped.com>
+//
+// This file is part of ADRC.
+//
+// This file may be used under the terms of the GNU General Public
+// License versions 2.0 or 3.0 as published by the Free Software
+// Foundation and appearing in the files LICENSE.GPL2 and LICENSE.GPL3
+// included in the packaging of this file.  Alternatively you may (at
+// your option) use any later version of the GNU General Public
+// License if such license has been publicly approved by Xped
+// Holdings Limited (or its successors, if any) and the KDE Free Qt
+// Foundation. In addition, as a special exception, Xped gives you
+// certain additional rights. These rights are described in the Xped
+// GPL Exception version 1.1, which can be found in the file
+// GPL_EXCEPTION.txt in this package.
+//
+// If you are unsure which license is appropriate for your use, please
+// contact the sales department at sales@xped.com.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
+// WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+-->
+
+<!ENTITY % loskins "black|white|metal|wood|earth|water|fire">
+
+<!ENTITY % modes "readonly|writeonly|readwrite|disabled">
+
+<!ENTITY % layouts "horizontal|vertical|grid">
+
+<!ENTITY % docks "left|right|top|bottom|centre|rightbottom|leftbottom|righttop|lefttop">
+
+<!ENTITY % loattrs
+ "layout (%layouts;) #IMPLIED
+  skin (%loskins;) #IMPLIED
+  stretch CDATA #IMPLIED
+  spacing CDATA #IMPLIED
+  margins CDATA #IMPLIED
+  leftmargin CDATA #IMPLIED
+  rightmargin CDATA #IMPLIED
+  topmargin CDATA #IMPLIED
+  bottommargin CDATA #IMPLIED
+  background-color CDATA #IMPLIED
+  alternate-background-color CDATA #IMPLIED"
+  >
+
+<!ENTITY % wiattrs
+ "bind CDATA #REQUIRED
+  dock (%docks;) #IMPLIED
+  stretch CDATA #IMPLIED
+  color CDATA #IMPLIED
+  background-color CDATA #IMPLIED
+  alternate-background-color CDATA #IMPLIED
+  text CDATA #IMPLIED
+  text-size CDATA #IMPLIED
+  text-bold CDATA #IMPLIED
+  text-italic CDATA #IMPLIED
+  text-color CDATA #IMPLIED
+  text-align CDATA #IMPLIED
+  row CDATA #IMPLIED
+  column CDATA #IMPLIED
+  rowspan CDATA #IMPLIED
+  columnspan CDATA #IMPLIED
+  size CDATA #IMPLIED
+  width CDATA #IMPLIED
+  height CDATA #IMPLIED
+  name CDATA #IMPLIED"
+  >
+
+<!ENTITY % btnskins
+ "Beryl |
+  alphanum |
+  back |
+  backward |
+  blue |
+  boxoffice |
+  cursor |
+  downward |
+  dvd |
+  Dvd_eject |
+  Dvd_fwd |
+  Dvd_next |
+  Dvd_pause |
+  Dvd_play |
+  Dvd_power |
+  Dvd_prev |
+  Dvd_rew |
+  Dvd_stop |
+  exit |
+  forward |
+  function |
+  green |
+  guide |
+  help |
+  home |
+  info |
+  input |
+  menu |
+  MetallicBrush |
+  mute |
+  power |
+  pvr_eject |
+  pvr_fwd |
+  pvr_pause |
+  pvr_play |
+  pvr_playpause |
+  pvr_record |
+  pvr_rew |
+  pvr_stop |
+  rectangle |
+  red |
+  return |
+  signal |
+  square |
+  topmenu |
+  tv |
+  upward |
+  vcr |
+  yellow"
+  >
+
+<!ENTITY % widgets
+ "separator*,
+  spacer*,
+  label*,
+  checkbox*,
+  pushbutton*,
+  slider*,
+  radiogroup*,
+  progress*,
+  lineedit*,
+  listbox*,
+  textbox*,
+  svgbutton*,
+  svgtoggleswitch*,
+  svgslideswitch*,
+  scrolldial*,
+  scrollwheel*,
+  scrolldialwheel*,
+  svg5waybutton*,
+  svg3waybutton*,
+  svg2waybutton*,
+  svgrockerbutton*,
+  led*,
+  sevenseg*,
+  dialgauge*"
+  >
+
+<!ELEMENT device (description,model,view?,controller?,configuration?,resource?,menu?)>
+<!ATTLIST device
+  xmlns CDATA #IMPLIED
+  >
+
+<!ELEMENT description (manufacturer,mmodel,category,version?,themename?,nickname?,class?,url?)>
+<!ELEMENT manufacturer (#PCDATA)>
+<!ELEMENT mmodel (#PCDATA)>
+<!ELEMENT category (#PCDATA)>
+<!ELEMENT version (#PCDATA)>
+<!ELEMENT nickname (localetitle)>
+<!ELEMENT themename (localetitle)>
+<!ELEMENT class (#PCDATA)>
+<!ELEMENT url (#PCDATA)>
+
+<!ELEMENT model (enum*,range*,trigger*,string*,record*,text*)*>
+
+<!ELEMENT enum (item+,units?,class?,cache?)>
+<!ATTLIST enum
+  id ID #REQUIRED
+  cmd CDATA #REQUIRED
+  mode (%modes;) "readwrite"
+  timeout CDATA #IMPLIED
+  >
+
+<!ELEMENT range (units?,class?,cache?)>
+<!ATTLIST range
+  id ID #REQUIRED
+  cmd CDATA #REQUIRED
+  mode (%modes;) "readwrite"
+  timeout CDATA #IMPLIED
+  min CDATA "0"
+  max CDATA #IMPLIED
+  step CDATA "1"
+  page CDATA #IMPLIED
+  >
+
+<!ELEMENT trigger (cache?)>
+<!ATTLIST trigger
+  id CDATA #REQUIRED
+  cmd CDATA #REQUIRED
+  mode (writeonly | disabled) "writeonly"
+  timeout CDATA #IMPLIED
+  file CDATA #IMPLIED
+  >
+
+<!ELEMENT text (cache?)>
+<!ATTLIST text
+  id CDATA #REQUIRED
+  cmd CDATA #REQUIRED
+  mode (writeonly | disabled) "writeonly"
+  timeout CDATA #IMPLIED
+  length CDATA #IMPLIED
+  >
+
+<!ELEMENT record (enum*,range*,class?,cache?)>
+<!ATTLIST record
+  id ID #REQUIRED
+  cmd CDATA #REQUIRED
+  mode (%modes;) "readonly"
+  >
+
+<!ELEMENT localetitle ANY>
+<!ELEMENT en (#PCDATA)>
+<!ELEMENT cn (#PCDATA)>
+<!ELEMENT zh (#PCDATA)>
+
+<!ELEMENT item (#PCDATA)>
+<!ATTLIST item
+  name CDATA #REQUIRED
+  value CDATA #REQUIRED
+  >
+
+<!ELEMENT units (#PCDATA)>
+<!ATTLIST units
+  system (SI|NA) "NA"
+  symbol CDATA #IMPLIED
+  type (integer|real) "integer"
+  exponent CDATA "0"
+  >
+
+<!ELEMENT cache (#PCDATA)>
+<!ATTLIST cache
+  etag (crc16|fnv32) "fnv32"
+  maxage CDATA #IMPLIED
+  >
+
+<!ELEMENT view (screen+)>
+
+<!ELEMENT screen (devicebox|signalbox|groupbox)>
+<!ATTLIST screen
+  name CDATA #IMPLIED
+  margins CDATA #IMPLIED
+  skin CDATA #IMPLIED
+  size (small|normal|large|xlarge) "normal"
+  density (ldpi|mdpi|hdpi|xdpi) "hdpi"
+  orientation (portrait|landscape) "landscape"
+  >
+
+<!ELEMENT devicebox (groupbox*,controlbox*,box*,localetitle*,%widgets;)*>
+<!ATTLIST devicebox
+  %loattrs;
+  title CDATA #IMPLIED
+  bind NMTOKEN #REQUIRED
+  >
+
+<!ELEMENT signalbox (groupbox*,controlbox*,box*,localetitle*,%widgets;)*>
+<!ATTLIST signalbox
+  %loattrs;
+  title CDATA #IMPLIED
+  >
+
+<!ELEMENT groupbox (groupbox*,controlbox*,box*,localetitle*,%widgets;)*>
+<!ATTLIST groupbox
+  %loattrs;
+  title CDATA #IMPLIED
+  >
+
+<!ELEMENT controlbox (box*,localetitle*,%widgets;)*>
+<!ATTLIST controlbox
+  %loattrs;
+  title CDATA #IMPLIED
+  bind NMTOKEN #REQUIRED
+  >
+
+<!ELEMENT box (box*,%widgets;)*>
+<!ATTLIST box
+  %loattrs;
+  dock (%docks;) #IMPLIED
+  row CDATA #IMPLIED
+  column CDATA #IMPLIED
+  rowspan CDATA #IMPLIED
+  columnspan CDATA #IMPLIED
+  border CDATA #IMPLIED
+  >
+
+<!ELEMENT separator EMPTY>
+<!ATTLIST separator
+  background-color CDATA #IMPLIED
+  row CDATA #IMPLIED
+  column CDATA #IMPLIED
+  rowspan CDATA #IMPLIED
+  columnspan CDATA #IMPLIED
+  >
+
+<!ELEMENT spacer EMPTY>
+<!ATTLIST spacer
+  stretch CDATA #IMPLIED
+  size CDATA #IMPLIED
+  >
+
+<!ELEMENT label (localetitle)>
+<!ATTLIST label
+  dock (%docks;) #IMPLIED
+  stretch CDATA #IMPLIED
+  text CDATA #IMPLIED
+  text-size CDATA #IMPLIED
+  text-bold CDATA #IMPLIED
+  text-italic CDATA #IMPLIED
+  text-color CDATA #IMPLIED
+  text-align CDATA #IMPLIED
+  row CDATA #IMPLIED
+  column CDATA #IMPLIED
+  rowspan CDATA #IMPLIED
+  columnspan CDATA #IMPLIED
+  >
+
+<!ELEMENT checkbox (localetitle*)>
+<!ATTLIST checkbox
+  %wiattrs;
+  title CDATA #IMPLIED
+  titledisplay CDATA #IMPLIED
+  >
+
+<!ELEMENT pushbutton (localetitle*)>
+<!ATTLIST pushbutton
+  %wiattrs;
+  titledisplay CDATA #IMPLIED
+  >
+
+<!ELEMENT slider EMPTY>
+<!ATTLIST slider
+  %wiattrs;
+  orientation (horizontal|vertical) "vertical"
+  >
+
+<!ELEMENT radiogroup (localetitle*)>
+<!ATTLIST radiogroup
+  %wiattrs;
+  title CDATA #REQUIRED
+  titledisplay CDATA #IMPLIED
+  orientation (horizontal|vertical) "vertical"
+  >
+
+<!ELEMENT progress EMPTY>
+<!ATTLIST progress
+  %wiattrs;
+  orientation (horizontal|vertical) "horizontal"
+  >
+
+<!ELEMENT lineedit EMPTY>
+<!ATTLIST lineedit
+  %wiattrs;
+  >
+
+<!ELEMENT listbox EMPTY>
+<!ATTLIST listbox
+  %wiattrs;
+  >
+
+<!ELEMENT textbox EMPTY>
+<!ATTLIST textbox
+  %wiattrs;
+  >
+
+<!ELEMENT svgbutton (localetitle*)>
+<!ATTLIST svgbutton
+  %wiattrs;
+  skin (%btnskins;) "Beryl"
+  titledisplay CDATA #IMPLIED
+  >
+
+<!ELEMENT svgtoggleswitch EMPTY>
+<!ATTLIST svgtoggleswitch
+  %wiattrs;
+  skin (Beryl|BerylSquare|BerylSquare_horizontal) "Beryl"
+  >
+
+<!ELEMENT svgslideswitch (localetitle*)>
+<!ATTLIST svgslideswitch
+  %wiattrs;
+  skin (Beryl|MetallicBrush) "Beryl"
+  titledisplay CDATA #IMPLIED
+  >
+
+<!ELEMENT scrolldial EMPTY>
+<!ATTLIST scrolldial
+  %wiattrs;
+  skin (Beryl) "Beryl"
+  >
+
+<!ELEMENT scrollwheel EMPTY>
+<!ATTLIST scrollwheel
+  %wiattrs;
+  skin (Beryl) "Beryl"
+  >
+
+<!ELEMENT scrolldialwheel EMPTY>
+<!ATTLIST scrolldialwheel
+  %wiattrs;
+  skin (Beryl) "Beryl"
+  parallelwheel (true|false) "true"
+  >
+
+<!ELEMENT svg5waybutton EMPTY>
+<!ATTLIST svg5waybutton
+  %wiattrs;
+  skin (Beryl|Beryl_ben|Beryl_navigator|Beryl_pvr) "Beryl"
+  >
+
+<!ELEMENT svg3waybutton EMPTY>
+<!ATTLIST svg3waybutton
+  %wiattrs;
+  skin (Beryl|Beryl_guide|Beryl_mute|Beryl_pvr) "Beryl"
+  orientation (horizontal|vertical) "horizontal"
+  >
+
+<!ELEMENT svg2waybutton (localetitle*)>
+<!ATTLIST svg2waybutton
+  %wiattrs;
+  skin (Beryl) "Beryl"
+  titledisplay CDATA #IMPLIED
+  >
+
+<!ELEMENT svgrockerbutton EMPTY>
+<!ATTLIST svgrockerbutton
+  %wiattrs;
+  skin (Beryl) "Beryl"
+  >
+
+<!ELEMENT led EMPTY>
+<!ATTLIST led
+  %wiattrs;
+  skin (roundrgb) "roundrgb"
+  enum CDATA #REQUIRED
+  >
+
+<!ELEMENT sevenseg EMPTY>
+<!ATTLIST sevenseg
+  %wiattrs;
+  segments CDATA #REQUIRED
+  >
+
+<!ELEMENT dialgauge EMPTY>
+<!ATTLIST dialgauge
+  %wiattrs;
+  skin (Generic|Amperemeter|Tachometer|Thermometer) "Generic"
+  >
+
+<!ELEMENT localetext (localetitle)>
+<!ATTLIST localetext
+  %wiattrs;
+  >
+ 
+<!ELEMENT controller ANY>
+
+<!ELEMENT resource (icon*)>
+<!ELEMENT icon (#PCDATA)>
+
+<!ELEMENT menu (menuitem*)>
+<!ELEMENT menuitem (#PCDATA)>
+
+<!-- end -->
