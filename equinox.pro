@@ -95,3 +95,6 @@ HEADERS  += \
 
 RESOURCES += \
     equinox.qrc
+
+OTHER_FILES += \
+    README.md
