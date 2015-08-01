@@ -20,13 +20,29 @@
 
 #include <QDebug>
 #include <QApplication>
+#include <QErrorMessage>
 #include "mainwindow.h"
+
+void reportCriticalErrors(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+  fprintf(stderr, "%s\n", msg.toLocal8Bit().data());
+  QErrorMessage *m = new QErrorMessage();
+  switch(type) {
+  case QtCriticalMsg:
+  case QtFatalMsg:
+    m->showMessage(msg);
+    break;
+  default:
+    break;
+  }
+}
 
 int main(int argc, char *argv[])
 {
     qDebug() << "Equinox V0.0.1 BUILD-0011 $Rev: 3680 $ $LastChangedDate: 2015-07-10 10:08:00 +0930 (Fri, 10 July 2015) $";
 
     QApplication a(argc, argv);
+    qInstallMessageHandler(reportCriticalErrors);
     MainWindow w;
     w.show();
 
