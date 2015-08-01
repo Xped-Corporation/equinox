@@ -223,6 +223,9 @@ void XPNetServiceWatcher::onAvahiFinished(int exitCode, QProcess::ExitStatus exi
 void XPNetServiceWatcher::onAvahiError(QProcess::ProcessError error)
 {
     qDebug() << "XPNetServiceWatcher::onAvahiError=" << error;
+    if (error == 0) {
+      qCritical("Unable to start avahi client program. Is Avahi installed?");
+    }
 }
 
 void XPNetServiceWatcher::onNetOnlineStateChanged(bool online)
